@@ -1,3 +1,4 @@
+#region Importazioni
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -7,7 +8,7 @@ from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score, class
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Funzioni di utilità
+#region Funzioni
 def print_dx_perc(data_frame, col):
     if col in data_frame:
         uni_target = data_frame[col].value_counts()
@@ -61,8 +62,6 @@ df.info()
 df.drop_duplicates()
 
 df = df.drop(columns=['Customer ID']) #Rimuovere il campo 'Customer ID'
-
-# Separare le caratteristiche (X) e la variabile target (y)
 X = df.drop(columns=['Purchase Amount (USD)'])
 y = df['Purchase Amount (USD)']
 
@@ -73,28 +72,17 @@ print("Categorical columns:", categorical_cols)
 for col in categorical_cols:
     X[col] = X[col].astype('category').cat.codes
 
-print(f"Dataset after encoding: {X.shape}")
-
 # Divisione dei dati in training e test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
 print(f"Shape of training data: {X_train.shape}")
 
 # Inizializziamo il modello
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
-
-# Addestriamo il modello
-rf_model.fit(X_train, y_train)
-
-# Previsioni sui dati di test
+rf_model.fit(X_train, y_train) # Addestriamo il modello
 y_pred = rf_model.predict(X_test)
 
 # Valutazione del modello
-mae = mean_absolute_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-print(f"Initial Model Performance:\nMAE: {mae}\nR²: {r2}")
-
-# Importanza delle feature
+mae = mean_absolute_error(y_test, y_pred) 
 feature_importances = variable_importance(rf_model)
 print_var_importance(feature_importances['importance'], feature_importances['index'], X.columns)
 variable_importance_plot(feature_importances['importance'], feature_importances['index'], X.columns)
@@ -160,14 +148,14 @@ def plot_combined(data, title, y_min, y_max):
     fig.tight_layout()
     plt.show()
 
-# Ciclo per generare grafici per maschi e femmine
+#Gender Male or Female
 for gender in ['Male', 'Female']:
     print(f"Table of Predicted Values for {gender}s by Location:")
     grouped_df_gender = grouped_df[grouped_df['Gender'] == gender]
     print(grouped_df_gender)
     plot_combined(grouped_df_gender, f'Predicted vs Actual Purchase Amounts for {gender}s by Location', 0, grouped_df['Purchase Amount (USD)'].max() + 1)
 
-    # Calcolare e visualizzare la differenza di predizione attuale
+    # Calcolare la differenza di predizione attuale
     dif_pred = grouped_df_gender['Predicted'] - grouped_df_gender['Purchase Amount (USD)']
     print(dif_pred)
 
@@ -186,12 +174,13 @@ for gender in ['Male', 'Female']:
         lower_whisker = q1 - 1.5 * iqr
         upper_whisker = q3 + 1.5 * iqr
 
-        # Identificare i valori minimi e massimi che non siano outlier
+        # Identificare minimi e massimi che non siano outlier
         non_outlier_mask = (dif_pred >= lower_whisker) & (dif_pred <= upper_whisker)
         non_outliers = dif_pred[non_outlier_mask]
         min_val = np.min(non_outliers)
         max_val = np.max(non_outliers)
         outliers = dif_pred[~non_outlier_mask]
+        print(outliers)
         
         fig, ax = plt.subplots(figsize=(10, 6))
         box = ax.boxplot(dif_pred, patch_artist=True, showfliers=True)
@@ -261,4 +250,3 @@ def regression_plot(df, title):
 
 regression_plot(df_male, 'Actual vs Predicted Purchase Amounts (Male)')
 regression_plot(df_female, 'Actual vs Predicted Purchase Amounts (Female)')
-
