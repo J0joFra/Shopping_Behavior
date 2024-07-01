@@ -9,7 +9,7 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-#region Preparazione Dati
+#region Preparazione
 # Caricamento dati
 file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
 df = pd.read_csv(file_path)
@@ -30,3 +30,21 @@ for col in categorical_cols:
     X[col] = X[col].astype('category').cat.codes
 
 print(f"Dataset after encoding: {X.shape}")
+
+#region PCA 
+# Standardizzazione delle feature
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Applicazione della PCA
+pca = PCA(n_components=0.95, random_state=42)
+X_pca = pca.fit_transform(X_scaled)
+
+print(f"Number of components selected by PCA: {pca.n_components_}")
+print(f"Explained variance ratio: {np.sum(pca.explained_variance_ratio_)}")
+
+# Divisione dei dati in training e test set
+X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
+
+print(f"Shape of training data after PCA: {X_train.shape}")
+
