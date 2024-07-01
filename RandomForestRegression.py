@@ -246,10 +246,19 @@ y_lr_pred = model_lr.predict(X_lr_test)
 # Verify shapes of X_lr_test and y_lr_test
 print(X_lr_test.shape, y_lr_test.shape)
 
-# Plotting the scatter plot
+# Scatter plot of actual vs predicted values
 plt.scatter(y_lr_test, y_lr_pred, color="black")  # Actual vs Predicted
+
+# Adding the reference line
+max_val = max(max(y_lr_test), max(y_lr_pred))
+min_val = min(min(y_lr_test), min(y_lr_pred))
+plt.plot([min_val, max_val], [min_val, max_val], color="red", linestyle="--")
+
+# Labels and title
 plt.xlabel('Actual Purchase Amount (USD)')
 plt.ylabel('Predicted Purchase Amount (USD)')
 plt.title('Actual vs Predicted Purchase Amounts (Linear Regression)')
+
+# Display the plot
 plt.show()
 
