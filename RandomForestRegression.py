@@ -228,37 +228,37 @@ for gender in ['Male', 'Female']:
         print(f"Box Plot Error: {e}")
 
 #region Linear Regression
-np.random.seed(0)
-X_lr = df.drop(columns=['Purchase Amount (USD)'])
-y_lr = df['Purchase Amount (USD)']
+# Suddivisione del dataset in base al genere
+df_male = df[df['Gender'] == 'Male']
+df_female = df[df['Gender'] == 'Female']
 
-# Codifica variabili categoriche
-categorical_cols_lr = X_lr.select_dtypes(include=['object']).columns
-for col in categorical_cols_lr:
-    X_lr[col] = X_lr[col].astype('category').cat.codes
+def regression_plot(df, title):
+    np.random.seed(0)
+    X = df.drop(columns=['Purchase Amount (USD)', 'Gender'])
+    y = df['Purchase Amount (USD)']
+    
+    categorical_cols = X.select_dtypes(include=['object']).columns
+    for col in categorical_cols:
+        X[col] = X[col].astype('category').cat.codes
 
-X_lr_train, X_lr_test, y_lr_train, y_lr_test = train_test_split(X_lr, y_lr, test_size = 0.2, random_state=0)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
-model_lr = LinearRegression()
-model_lr.fit(X_lr_train, y_lr_train)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
 
-y_lr_pred = model_lr.predict(X_lr_test)
-# Verify shapes of X_lr_test and y_lr_test
-print(X_lr_test.shape, y_lr_test.shape)
+    # Scatter plot di valori effettivi vs previsti
+    plt.scatter(y_test, y_pred, color="black")
+    
+    max_val = max(max(y_test), max(y_pred))
+    min_val = min(min(y_test), min(y_pred))
+    plt.plot([min_val, max_val], [min_val, max_val], color="red", linestyle="--")
+    
+    plt.xlabel('Actual Purchase Amount (USD)')
+    plt.ylabel('Predicted Purchase Amount (USD)')
+    plt.title(title)
+    plt.show()
 
-# Scatter plot of actual vs predicted values
-plt.scatter(y_lr_test, y_lr_pred, color="black")  # Actual vs Predicted
-
-# Adding the reference line
-max_val = max(max(y_lr_test), max(y_lr_pred))
-min_val = min(min(y_lr_test), min(y_lr_pred))
-plt.plot([min_val, max_val], [min_val, max_val], color="red", linestyle="--")
-
-# Labels and title
-plt.xlabel('Actual Purchase Amount (USD)')
-plt.ylabel('Predicted Purchase Amount (USD)')
-plt.title('Actual vs Predicted Purchase Amounts (Linear Regression)')
-
-# Display the plot
-plt.show()
+regression_plot(df_male, 'Actual vs Predicted Purchase Amounts (Male)')
+regression_plot(df_female, 'Actual vs Predicted Purchase Amounts (Female)')
 
