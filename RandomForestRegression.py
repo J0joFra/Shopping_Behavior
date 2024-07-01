@@ -227,3 +227,29 @@ for gender in ['Male', 'Female']:
     except Exception as e:
         print(f"Box Plot Error: {e}")
 
+#region Linear Regression
+np.random.seed(0)
+X_lr = df.drop(columns=['Purchase Amount (USD)'])
+y_lr = df['Purchase Amount (USD)']
+
+# Codifica variabili categoriche
+categorical_cols_lr = X_lr.select_dtypes(include=['object']).columns
+for col in categorical_cols_lr:
+    X_lr[col] = X_lr[col].astype('category').cat.codes
+
+X_lr_train, X_lr_test, y_lr_train, y_lr_test = train_test_split(X_lr, y_lr, test_size = 0.2, random_state=0)
+
+model_lr = LinearRegression()
+model_lr.fit(X_lr_train, y_lr_train)
+
+y_lr_pred = model_lr.predict(X_lr_test)
+# Verify shapes of X_lr_test and y_lr_test
+print(X_lr_test.shape, y_lr_test.shape)
+
+# Plotting the scatter plot
+plt.scatter(y_lr_test, y_lr_pred, color="black")  # Actual vs Predicted
+plt.xlabel('Actual Purchase Amount (USD)')
+plt.ylabel('Predicted Purchase Amount (USD)')
+plt.title('Actual vs Predicted Purchase Amounts (Linear Regression)')
+plt.show()
+
