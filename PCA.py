@@ -96,4 +96,76 @@ print("Optimized Model Performance:")
 print(f"MAE: {mae_optimized}")
 print(f"R²: {r2_optimized}")
 
+#region Risultati
+# Visualizzazione dei risultati
+df['Predicted'] = rf_model.predict(X_scaled)
+grouped_df = df.groupby(['Gender', 'Location']).agg({'Purchase Amount (USD)': 'mean', 'Predicted': 'mean'}).reset_index()
+
+grouped_df['Predicted'] = grouped_df['Predicted'].round(3)
+grouped_df = grouped_df.sort_values(by='Location')
+
+print("Table of Predicted Values by Gender and Location:")
+print(grouped_df)
+
+# Ciclo per generare grafici per maschi e femmine
+for gender in ['Male', 'Female']:
+    print(f"Table of Predicted Values for {gender}s by Location:")
+    grouped_df_gender = grouped_df[grouped_df['Gender'] == gender]
+    print(grouped_df_gender)
+    plot_combined(grouped_df_gender, f'Predicted vs Actual Purchase Amounts for {gender}s by Location', 0, grouped_df['Purchase Amount (USD)'].max() + 1)
+
+    dif_pred = grouped_df_gender['Predicted'] - grouped_df_gender['Purchase Amount (USD)']
+    print(dif_pred)
+
+    plt.figure(figsize=(12, 8))
+    plt.bar(grouped_df_gender['Location'], dif_pred)
+    plt.suptitle(f'Prediction differences for {gender}s')
+    plt.show()
+
+    try:
+        median = np.median(dif_pred)
+        q1 = np.percentile(dif_pred, 25)
+        q3 = np.percentile(dif_pred, 75)
+        iqr = q3 - q1
+        lower_whisker = q1 - 1.5 * iqr
+        upper_whisker = q3 + 1.5 * iqr
+
+        non_outlier_mask = (dif_pred >= lower_whisker) & (dif_pred <= upper_whisker)
+        non_outliers = dif_pred[non_outlier_mask]
+        min_val = np.min(non_outliers)
+        max_val = np.max(non_outliers)
+        outliers = dif_pred[~non_outlier_mask]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        box = ax.boxplot(dif_pred, patch_artist=True, showfliers=True)
+        colors = ['#FF6F61']
+        for patch, color in zip(box['boxes'], colors):
+            patch.set_facecolor(color)
+        for flier in box['fliers']:
+            flier.set(marker='o', color='red', alpha=0.5)
+
+        ax.text(1.1, median, f'Median: {median:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, q1, f'Q1: {q1:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, q3, f'Q3: {q3:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, lower_whisker, f'Lower Whisker: {lower_whisker:.2f}', horizontalalignment='center',
+                verticalalignment='center', fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, upper_whisker, f'Upper Whisker: {upper_whisker:.2f}', horizontalalignment='center',
+                verticalalignment='center', fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, min_val, f'Min: {min_val:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, max_val, f'Max: {max_val:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+
+        ax.axhline(y=median, color='blue', linestyle='--', linewidth=1.5)
+        ax.set_ylabel('Values')
+        ax.set_title(f'Difference in {gender} Predictions')
+        ax.grid(True, linestyle='--', alpha=0.7)
+
+        plt.show()
+    except Exception as e:
+        print(f"Box Plot Error: {e}")
+
 
