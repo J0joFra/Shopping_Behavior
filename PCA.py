@@ -48,3 +48,22 @@ X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, ran
 
 print(f"Shape of training data after PCA: {X_train.shape}")
 
+#region Modello
+# Inizializzazione del modello Random Forest
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+
+# Addestramento del modello
+rf_model.fit(X_train, y_train)
+
+# Previsioni sui dati di test
+y_pred = rf_model.predict(X_test)
+
+# Valutazione del modello
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f"Model Performance after PCA:\nMAE: {mae}\nR²: {r2}")
+
+# Importanza delle feature
+feature_importances = variable_importance(rf_model)
+print_var_importance(feature_importances['importance'], feature_importances['index'], X.columns)
+variable_importance_plot(feature_importances['importance'], feature_importances['index'], X.columns)
