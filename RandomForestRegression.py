@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score, classification_report
@@ -225,3 +226,29 @@ for gender in ['Male', 'Female']:
         plt.show()
     except Exception as e:
         print(f"Box Plot Error: {e}")
+        
+#region Linear Regression
+# Initialize Linear Regression model
+lr_model = LinearRegression()
+
+# Train the model
+lr_model.fit(X_train, y_train)
+
+# Predictions on test data
+y_pred_linear = lr_model.predict(X_test)
+
+# Evaluate Linear Regression Performance
+mae_lr = mean_absolute_error(y_test, y_pred_linear)
+r2_lr = r2_score(y_test, y_pred_linear)
+print(f"Linear Regression Performance:\nMAE: {mae_lr}\nR²: {r2_lr}")
+
+# Plot comparison
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test, y_pred, color='blue', alpha=0.7, label='Random Forest')
+plt.scatter(y_test, y_pred_linear, color='red', alpha=0.7, label='Linear Regression')
+plt.title('Comparison of Predictions: Random Forest vs Linear Regression')
+plt.xlabel('Actual Purchase Amount (USD)')
+plt.ylabel('Predicted Purchase Amount (USD)')
+plt.legend()
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.show()
