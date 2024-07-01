@@ -9,6 +9,41 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+def variable_importance(fit):
+    try:
+        if not hasattr(fit, 'fit'):
+            return print("'{0}' is not an instantiated model from scikit-learn".format(fit))
+        if not hasattr(fit, 'feature_importances_'):
+            return print("Model does not have feature_importances_ attribute.")
+    except KeyError:
+        print("Model entered does not contain 'estimators_' attribute.")
+
+    importances = fit.feature_importances_
+    indices = np.argsort(importances)[::-1]
+    return {'importance': importances, 'index': indices}
+
+def print_var_importance(importance, indices, names_index):
+    print("Feature ranking:")
+    for f in range(len(indices)):
+        print("{0}. The feature '{1}' has a Mean Decrease in Impurity of {2:.5f}"
+              .format(f + 1, names_index[indices[f]], importance[indices[f]]))
+
+def variable_importance_plot(importance, indices, names_index):
+    importance_desc = [importance[i] for i in indices]
+    feature_space = [names_index[i] for i in indices]
+
+    fig, ax = plt.subplots(figsize=(10, 10))
+    ax.set_facecolor('#fafafa')
+    plt.title('Feature Importances for Random Forest Model')
+    plt.barh(range(len(importance_desc)), importance_desc, align="center", color='#875FDB')
+    plt.yticks(range(len(importance_desc)), feature_space)
+    plt.xlabel('Mean Decrease in Impurity')
+    plt.ylabel('Feature')
+    plt.gca().invert_yaxis()
+    plt.show()
+    plt.close()
+
+
 #region Preparazione
 # Caricamento dati
 file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
@@ -63,7 +98,10 @@ mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 print(f"Model Performance after PCA:\nMAE: {mae}\nR²: {r2}")
 
-# Importanza delle feature
+# Addestramento del modello
+rf_model.fit(X_train, y_train)
+
+# Calcolo dell'importanza delle feature
 feature_importances = variable_importance(rf_model)
 print_var_importance(feature_importances['importance'], feature_importances['index'], X.columns)
 variable_importance_plot(feature_importances['importance'], feature_importances['index'], X.columns)
