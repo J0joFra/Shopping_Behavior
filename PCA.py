@@ -67,3 +67,33 @@ print(f"Model Performance after PCA:\nMAE: {mae}\nR²: {r2}")
 feature_importances = variable_importance(rf_model)
 print_var_importance(feature_importances['importance'], feature_importances['index'], X.columns)
 variable_importance_plot(feature_importances['importance'], feature_importances['index'], X.columns)
+
+#region GridSearchCV
+# Ottimizzazione degli iperparametri con GridSearchCV
+param_grid = {
+    'n_estimators': [100, 200],
+    'max_depth': [10, 20, None],
+    'min_samples_split': [2, 5, 10]
+}
+
+grid_search = GridSearchCV(estimator=rf_model, param_grid=param_grid, cv=3, n_jobs=-1, scoring='neg_mean_absolute_error')
+grid_search.fit(X_train, y_train)
+
+# Migliori parametri trovati
+best_params = grid_search.best_params_
+print("Best Parameters from GridSearchCV:")
+print(best_params)
+
+# Addestramento del modello con i migliori parametri
+best_rf_model = grid_search.best_estimator_
+y_pred_optimized = best_rf_model.predict(X_test)
+
+# Valutazione del modello ottimizzato
+mae_optimized = mean_absolute_error(y_test, y_pred_optimized)
+r2_optimized = r2_score(y_test, y_pred_optimized)
+
+print("Optimized Model Performance:")
+print(f"MAE: {mae_optimized}")
+print(f"R²: {r2_optimized}")
+
+
