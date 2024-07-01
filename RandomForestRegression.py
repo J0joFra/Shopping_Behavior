@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score, classification_report
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -91,7 +91,6 @@ y_pred = rf_model.predict(X_test)
 # Valutazione del modello
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
-
 print(f"Initial Model Performance:\nMAE: {mae}\nR²: {r2}")
 
 # Importanza delle feature
@@ -226,7 +225,3 @@ for gender in ['Male', 'Female']:
         plt.show()
     except Exception as e:
         print(f"Box Plot Error: {e}")
-
-
-
-
