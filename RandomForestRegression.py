@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
 import matplotlib.pyplot as plt
@@ -21,7 +21,6 @@ def variable_importance(fit):
     try:
         if not hasattr(fit, 'fit'):
             return print("'{0}' is not an instantiated model from scikit-learn".format(fit))
-
         if not hasattr(fit, 'feature_importances_'):
             return print("Model does not have feature_importances_ attribute.")
     except KeyError:
@@ -52,17 +51,15 @@ def variable_importance_plot(importance, indices, names_index):
     plt.show()
     plt.close()
 
-# Caricare il dataset
+#region Analisi
 file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
 df = pd.read_csv(file_path)
 
-# Visualizzare le prime righe del dataset
-print("Dataset Head:")
-print(df.head())
+df.describe()
+df.info()
+df.drop_duplicates()
 
-# Rimuovere il campo 'Customer ID' e 'Previous Purchases'
-df = df.drop(columns=['Customer ID', 'Previous Purchases'])
-print(df.dtypes)
+df = df.drop(columns=['Customer ID']) #Rimuovere il campo 'Customer ID'
 
 # Separare le caratteristiche (X) e la variabile target (y)
 X = df.drop(columns=['Purchase Amount (USD)'])
@@ -75,14 +72,12 @@ print("Categorical columns:", categorical_cols)
 for col in categorical_cols:
     X[col] = X[col].astype('category').cat.codes
 
-print("Dataset after encoding:")
-print(X.head())
+print(f"Dataset after encoding: {X.shape}")
 
 # Divisione dei dati in training e test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-print("Shape of training data:")
-print(X_train.shape)
+print(f"Shape of training data: {X_train.shape}")
 
 # Inizializziamo il modello
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
@@ -93,14 +88,11 @@ rf_model.fit(X_train, y_train)
 # Previsioni sui dati di test
 y_pred = rf_model.predict(X_test)
 
-
 # Valutazione del modello
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print("Initial Model Performance:")
-print(f"MAE: {mae}")
-print(f"R²: {r2}") 
+print(f"Initial Model Performance:\nMAE: {mae}\nR²: {r2}")
 
 # Importanza delle feature
 feature_importances = variable_importance(rf_model)
@@ -149,14 +141,6 @@ grouped_df = grouped_df.sort_values(by='Location')
 # Visualizzare la tabella delle predizioni per sesso e località
 print("Table of Predicted Values by Gender and Location:")
 
-# Suddividere la tabella delle predizioni in due grafici distinti
-grouped_df_male = grouped_df[grouped_df['Gender'] == 'Male']
-grouped_df_female = grouped_df[grouped_df['Gender'] == 'Female']
-
-# Determinare i limiti comuni dell'asse y
-y_min = min(grouped_df['Purchase Amount (USD)'].min(), grouped_df['Predicted'].min())
-y_max = max(grouped_df['Purchase Amount (USD)'].max(), grouped_df['Predicted'].max())
-
 # Funzione per creare il grafico combinato
 def plot_combined(data, title, y_min, y_max):
     fig, ax1 = plt.subplots(figsize=(12, 8))
@@ -176,39 +160,72 @@ def plot_combined(data, title, y_min, y_max):
     fig.tight_layout()
     plt.show()
 
-# Visualizzare le predizioni per i maschi
-print("Table of Predicted Values for Males by Location:")
-print(grouped_df_male)
-plot_combined(grouped_df_male, 'Predicted vs Actual Purchase Amounts for Males by Location', 0, y_max + 1)
+# Ciclo per generare grafici per maschi e femmine
+for gender in ['Male', 'Female']:
+    print(f"Table of Predicted Values for {gender}s by Location:")
+    grouped_df_gender = grouped_df[grouped_df['Gender'] == gender]
+    print(grouped_df_gender)
+    plot_combined(grouped_df_gender, f'Predicted vs Actual Purchase Amounts for {gender}s by Location', 0, grouped_df['Purchase Amount (USD)'].max() + 1)
 
-# Visualizzare le predizioni per le femmine
-print("Table of Predicted Values for Females by Location:")
-print(grouped_df_female)
-plot_combined(grouped_df_female, 'Predicted vs Actual Purchase Amounts for Females by Location', 0, y_max + 1)
+    # Calcolare e visualizzare la differenza di predizione attuale
+    dif_pred = grouped_df_gender['Predicted'] - grouped_df_gender['Purchase Amount (USD)']
+    print(dif_pred)
 
+    plt.figure(figsize=(12, 8))
+    plt.bar(grouped_df_gender['Location'], dif_pred)
+    plt.suptitle(f'Prediction differences for {gender}s')
+    plt.show()
 
-#Visualizzare differenza predizione attuale
-Male_dif_pred = grouped_df_male['Predicted'] - grouped_df_male['Purchase Amount (USD)']
-print(Male_dif_pred)
+    # Box plot
+    try:
+        # Calcolare i valori di mediana, Q1, Q3 e gli estremi
+        median = np.median(dif_pred)
+        q1 = np.percentile(dif_pred, 25)
+        q3 = np.percentile(dif_pred, 75)
+        iqr = q3 - q1
+        lower_whisker = q1 - 1.5 * iqr
+        upper_whisker = q3 + 1.5 * iqr
 
-plt.figure(figsize=(9, 3))
+        # Identificare i valori minimi e massimi che non siano outlier
+        non_outlier_mask = (dif_pred >= lower_whisker) & (dif_pred <= upper_whisker)
+        non_outliers = dif_pred[non_outlier_mask]
+        min_val = np.min(non_outliers)
+        max_val = np.max(non_outliers)
+        outliers = dif_pred[~non_outlier_mask]
+        
+        fig, ax = plt.subplots(figsize=(10, 6))
+        box = ax.boxplot(dif_pred, patch_artist=True, showfliers=True)
+        colors = ['#FF6F61']
+        for patch, color in zip(box['boxes'], colors):
+            patch.set_facecolor(color)
+        for flier in box['fliers']:
+            flier.set(marker='o', color='red', alpha=0.5) #outliers
 
-plt.subplot(131)
-plt.bar(grouped_df_male['Location'], Male_dif_pred)
-plt.subplot(132)
-plt.suptitle('Prediction differents')
-plt.show()
+        # Mediana, Q1, Q3, whisker inferiori e superiori, massimo e minimo
+        ax.text(1.1, median, f'Median: {median:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, q1, f'Q1: {q1:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, q3, f'Q3: {q3:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, lower_whisker, f'Lower Whisker: {lower_whisker:.2f}', horizontalalignment='center',
+                verticalalignment='center', fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, upper_whisker, f'Upper Whisker: {upper_whisker:.2f}', horizontalalignment='center',
+                verticalalignment='center', fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, min_val, f'Min: {min_val:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
+        ax.text(1.1, max_val, f'Max: {max_val:.2f}', horizontalalignment='center', verticalalignment='center',
+                fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
 
+        #Linea tratteggiata per la mediana
+        ax.axhline(y=median, color='blue', linestyle='--', linewidth=1.5)
+        ax.set_ylabel('Values')
+        ax.set_title(f'Difference in {gender} Predictions')
+        ax.grid(True, linestyle='--', alpha=0.7)
 
-
-
-
-
-
-
-
-
-
+        plt.show()
+    except Exception as e:
+        print(f"Box Plot Error: {e}")
 
 
 
