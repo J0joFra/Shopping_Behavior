@@ -104,19 +104,8 @@ plt.title('Distribuzione dell\'età')
 plt.ylabel('Età')
 plt.show()
 ```
-<div style="display: flex; align-items: center;">
-  <div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 60%; padding-left: 20%">
-  </div>
-  <div style="width: 60%; padding-left: 20%;">
-    <p style="text-align: center;"><strong>Interpretazione del Box Plot</strong></p>
-    <p style="text-align: justify;">
-      <strong>Linea Mediana:</strong> La linea all'interno della scatola rappresenta la mediana dell'età, che divide il dataset in due metà.<br>
-      <strong>Scatola (Box):</strong> I bordi della scatola rappresentano il primo quartile (Q1) e il terzo quartile (Q3). Il 50% dei dati si trova all'interno di questa scatola.<br>
-      <strong>Baffi (Whiskers):</strong> I baffi estendono i dati fino a 1.5 volte l'intervallo interquartile (IQR) dai quartili. Qualsiasi dato al di fuori di questo intervallo è considerato un outlier.<br>
-      <strong>Outlier:</strong> I punti al di fuori dei baffi sono outlier, che rappresentano valori anomali che si discostano significativamente dal resto dei dati.
-    </p>
-  </div>
+<div style="display: flex; justify-content: center;">
+  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="padding-left: 20%; width: 60%;">
 </div>
 
 ### Purchase Amount ($)
