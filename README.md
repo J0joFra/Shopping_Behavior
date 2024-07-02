@@ -12,12 +12,35 @@ Questo progetto analizza i dati relativi ai comportamenti di acquisto dei client
 
 ## Dataset
 Il dataset principale utilizzato in questo progetto è `shopping_behavior_updated.csv`. Contiene informazioni dettagliate sulle transazioni dei clienti, inclusi:
-- ID cliente
-- Data e ora dell'acquisto
-- ID prodotto
-- Categoria prodotto
-- Prezzo
-- Quantità
+<div>
+  <div style="float: left; width: 50%;">
+    <ul>
+      <li>Customer ID</li>
+      <li>Age</li>
+      <li>Gender</li>
+      <li>Item Purchased</li>
+      <li>Category</li>
+      <li>Purchase Amount (USD)</li>
+      <li>Location</li>
+      <li>Size</li>
+    </ul>
+  </div>
+  <div style="float: left; width: 50%;">
+    <ul>
+      <li>Color</li>
+      <li>Season</li>
+      <li>Review Rating</li>
+      <li>Subscription Status</li>
+      <li>Shipping Type</li>
+      <li>Discount Applied</li>
+      <li>Promo Code Used</li>
+      <li>Previous Purchases</li>
+      <li>Payment Method</li>
+      <li>Frequency of Purchases</li>
+    </ul>
+  </div>
+  <div style="clear: both;"></div>
+</div>
 
 ## Requisiti
 - Python 3.x
