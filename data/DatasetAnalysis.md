@@ -106,7 +106,7 @@ plt.show()
 ```
 <div style="display: flex; align-items: center;">
   <div style="flex: 1; text-align: center;">
-    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 300px;height: 200px">
+    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 80%">
   </div>
   <div style="flex: 1; padding-left: 20px;">
     <p style="text-align: center;"><strong>Interpretazione del Box Plot</strong></p>
