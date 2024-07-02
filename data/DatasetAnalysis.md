@@ -11,11 +11,11 @@ Il dataset principale utilizzato in questo progetto è `shopping_behavior_update
 |                                 | Color                        |
 |                                 | Season                       |
 
-## Utilizzo
+## Struttura Dataset
 ### Importa il dataset:
 ```python
 import pandas as pd
-file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
+file_path = r"percorso del file csv"
 df = pd.read_csv(file_path)
 ```
 
@@ -91,6 +91,8 @@ Output:
 Le righe duplicate sono 25
 ```
 
+
+## Analisi Colonne
 ### Visualizza boxplot di età e importo dell'acquisto:
 ```python
 import matplotlib.pyplot as plt
