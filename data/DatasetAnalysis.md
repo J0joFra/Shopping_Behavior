@@ -105,10 +105,10 @@ plt.ylabel('Età')
 plt.show()
 ```
 <div style="display: flex; align-items: center;">
-  <div style="flex: 1; text-align: center;">
-    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 60%">
+  <div style="text-align: center;">
+    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 60%; padding-left: 20%">
   </div>
-  <div style="flex: 1; padding-left: 20%;">
+  <div style="width: 60%; padding-left: 20%;">
     <p style="text-align: center;"><strong>Interpretazione del Box Plot</strong></p>
     <p style="text-align: justify;">
       <strong>Linea Mediana:</strong> La linea all'interno della scatola rappresenta la mediana dell'età, che divide il dataset in due metà.<br>
