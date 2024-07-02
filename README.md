@@ -12,18 +12,25 @@ Questo progetto analizza i dati relativi ai comportamenti di acquisto dei client
 
 ## Dataset
 Il dataset principale utilizzato in questo progetto è `shopping_behavior_updated.csv`. Contiene informazioni dettagliate sulle transazioni dei clienti, inclusi:
-| Colonna 1                       | Colonna 2                    |
+| Generalità                      | Dettagli Acquisto            |
 |---------------------------------|------------------------------|
-| Customer ID                     | Color                        |
-| Age                             | Season                       |
-| Gender                          | Review Rating                |
-| Item Purchased                  | Subscription Status          |
-| Category                        | Shipping Type                |
-| Purchase Amount (USD)           | Discount Applied             |
-| Location                        | Promo Code Used              |
-| Size                            | Previous Purchases           |
-|                                 | Payment Method               |
-|                                 | Frequency of Purchases       |
+| Customer ID                     | Item Purchased               |
+| Age                             | Category                     |
+| Gender                          | Purchase Amount (USD)        |
+| Location                        | Size                         |
+|                                 | Color                        |
+|                                 | Season                       |
+
+| Informazioni Aggiuntive         | Informazioni Finanziarie     |
+|---------------------------------|------------------------------|
+| Review Rating                   | Discount Applied             |
+| Subscription Status             | Promo Code Used              |
+| Previous Purchases              | Payment Method               |
+| Frequency of Purchases          |                              |
+
+| Logistica                       |                              |
+|---------------------------------|------------------------------|
+| Shipping Type                   |                              |
 
 ## Requisiti
 - Python 3.x
