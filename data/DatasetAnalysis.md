@@ -93,7 +93,7 @@ Le righe duplicate sono 25
 
 
 ## Analisi Colonne
-### Visualizza boxplot di età e importo dell'acquisto:
+### Age
 ```python
 import matplotlib.pyplot as plt
 
@@ -109,6 +109,23 @@ plt.title('Distribuzione dell\'importo dell\'acquisto')
 plt.ylabel('Importo (USD)')
 plt.show()
 ```
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 50%, left-padding: 25%">
+</div>
+
+### Purchase Amount ($)
+```python
+# Purchase Amount Distribution Across Age Groups
+plt.figure(figsize = (14, 6))
+sns.boxplot(x = 'Age', y = 'Purchase Amount (USD)', data = demo_data, palette = 'dark')
+plt.title('Purchase Amount Distribution Across Age Groups')
+plt.xlabel('Age')
+plt.ylabel('Purchase Amount')
+plt.xticks(rotation=45)
+plt.show()
+plt.savefig('Purchase Amount Distribution Across Age Groups boxplot')
+```
+
 
 ## Contributi
 Contributi sono benvenuti! Per favore, crea una pull request o apri un issue per discutere i cambiamenti che vuoi apportare.
