@@ -94,29 +94,33 @@ Le righe duplicate sono 25
 
 ## Analisi Colonne
 ### Age
+In questa sezione, presentiamo un'analisi della distribuzione dell'età utilizzando un box plot. Il box plot è uno strumento grafico che consente di visualizzare la distribuzione statistica di un insieme di dati, evidenziando i quartili, la mediana, e gli outlier.
 ```python
 import matplotlib.pyplot as plt
 
-plt.figure(figsize=(6, 4))
 df[['Age']].boxplot()
 plt.title('Distribuzione dell\'età')
 plt.ylabel('Età')
 plt.show()
-
-plt.figure(figsize=(6, 4))
-df[['Purchase Amount (USD)']].boxplot()
-plt.title('Distribuzione dell\'importo dell\'acquisto')
-plt.ylabel('Importo (USD)')
-plt.show()
 ```
-<div style="text-align: center;">
-  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 50%, left-padding: 25%">
+<div style="display: flex; align-items: center;">
+  <div style="flex: 1; text-align: center;">
+    <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 80%;">
+  </div>
+  <div style="flex: 1; padding-left: 20px;">
+    <p style="text-align: center;"><strong>Interpretazione del Box Plot</strong></p>
+    <p style="text-align: justify;">
+      <strong>Linea Mediana:</strong> La linea all'interno della scatola rappresenta la mediana dell'età, che divide il dataset in due metà.<br>
+      <strong>Scatola (Box):</strong> I bordi della scatola rappresentano il primo quartile (Q1) e il terzo quartile (Q3). Il 50% dei dati si trova all'interno di questa scatola.<br>
+      <strong>Baffi (Whiskers):</strong> I baffi estendono i dati fino a 1.5 volte l'intervallo interquartile (IQR) dai quartili. Qualsiasi dato al di fuori di questo intervallo è considerato un outlier.<br>
+      <strong>Outlier:</strong> I punti al di fuori dei baffi sono outlier, che rappresentano valori anomali che si discostano significativamente dal resto dei dati.
+    </p>
+  </div>
 </div>
 
 ### Purchase Amount ($)
 ```python
 # Purchase Amount Distribution Across Age Groups
-plt.figure(figsize = (14, 6))
 sns.boxplot(x = 'Age', y = 'Purchase Amount (USD)', data = demo_data, palette = 'dark')
 plt.title('Purchase Amount Distribution Across Age Groups')
 plt.xlabel('Age')
@@ -125,7 +129,9 @@ plt.xticks(rotation=45)
 plt.show()
 plt.savefig('Purchase Amount Distribution Across Age Groups boxplot')
 ```
-
+<div style="text-align: center;">
+  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_purchase_by_ages.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 50%, left-padding: 25%">
+</div>
 
 ## Contributi
 Contributi sono benvenuti! Per favore, crea una pull request o apri un issue per discutere i cambiamenti che vuoi apportare.
