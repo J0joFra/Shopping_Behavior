@@ -1,4 +1,3 @@
-```markdown
 # Dataset Analysis
 
 ## Dataset
@@ -58,6 +57,3 @@ Questo progetto è rilasciato sotto la [MIT License](LICENSE).
 
 ## Contatti
 Per qualsiasi domanda o suggerimento, puoi contattarmi a [email@example.com](mailto:email@example.com).
-```
-
-Sentiti libero di personalizzare ulteriormente questo `README.md` in base alle specifiche del tuo progetto e delle tue esigenze.
