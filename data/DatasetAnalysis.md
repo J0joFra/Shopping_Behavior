@@ -94,8 +94,9 @@ Le righe duplicate sono 25
 
 ## Analisi Colonne
 ### Age
-In questa sezione, presentiamo un'analisi della distribuzione dell'età utilizzando un box plot. Il box plot è uno strumento grafico che consente di visualizzare la distribuzione statistica di un insieme di dati, evidenziando i quartili, la mediana, e gli outlier.
+
 ```python
+# Age Distribution
 import matplotlib.pyplot as plt
 
 df[['Age']].boxplot()
@@ -104,13 +105,17 @@ plt.title('Distribuzione dell\'età')
 plt.ylabel('Età')
 plt.show()
 ```
+
 <div style="display: flex; justify-content: center;">
   <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_age.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="padding-left: 20%; width: 60%;">
 </div>
 
 ### Purchase Amount ($)
+
 ```python
 # Purchase Amount Distribution Across Age Groups
+import matplotlib.pyplot as plt
+
 sns.boxplot(x = 'Age', y = 'Purchase Amount (USD)', data = demo_data, palette = 'dark')
 plt.title('Purchase Amount Distribution Across Age Groups')
 plt.xlabel('Age')
@@ -120,7 +125,7 @@ plt.show()
 plt.savefig('Purchase Amount Distribution Across Age Groups boxplot')
 ```
 <div style="text-align: center;">
-  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_purchase_by_ages.png" alt="Distribuzione dell'età" title="Distribuzione dell'età" style="width: 50%, left-padding: 25%">
+  <img src="https://raw.githubusercontent.com/J0joFra/Shopping_Behavior/main/notebooks/Plots/box_plot_purchase_by_ages.png" alt=" Purchase Amount Distribution Across Age Groups " title="Distribuzione dell'età" style="width: 50%, left-padding: 25%">
 </div>
 
 ## Contributi
