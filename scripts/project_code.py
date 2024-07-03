@@ -94,8 +94,8 @@ mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
 print("Optimized Model Performance:")
-print(f"MAE: {mae_optimized}") #Mean Absolute Error
-print(f"R²: {r2_optimized}") #Coefficiente di Determinazione
+print(f"MAE: {mae}") #Mean Absolute Error
+print(f"R²: {r2}") #Coefficiente di Determinazione
 
 # Ottimizzazione degli iperparametri con GridSearchCV
 param_grid = {
