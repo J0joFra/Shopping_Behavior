@@ -53,6 +53,9 @@ def variable_importance_plot(importance, indices, names_index):
     plt.show()
     plt.close()
 
+#========================================================================================================================================
+#========================================================================================================================================
+
 #region Analisi
 file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
 df = pd.read_csv(file_path)
@@ -65,7 +68,7 @@ df = df.drop(columns=['Customer ID']) #Rimuovere il campo 'Customer ID'
 X = df.drop(columns=['Purchase Amount (USD)'])
 y = df['Purchase Amount (USD)']
 
-# Codifica variabili categoriche
+#region Variabili Categoriche
 categorical_cols = X.select_dtypes(include=['object']).columns
 print("Categorical columns:", categorical_cols)
 
@@ -93,7 +96,7 @@ variable_importance_plot(feature_importances['importance'], feature_importances[
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print("Model Performance:")
+print("RandomForestRegressor Performance:")
 print(f"MAE: {mae}") #Mean Absolute Error
 print(f"R²: {r2}") #Coefficiente di Determinazione
 
@@ -124,10 +127,24 @@ print("Optimized Model Performance:")
 print(f"MAE: {mae_optimized}") #Mean Absolute Error
 print(f"R²: {r2_optimized}") #Coefficiente di Determinazione
 
+print(rf_model.predict(X))
+#========================================================================================================================================
+#========================================================================================================================================
+
 # Aggiungere le predizioni suddivise per sesso e località
 df['Predicted'] = rf_model.predict(X)
-grouped_df = df.groupby(['Gender', 'Location']).agg({'Purchase Amount (USD)': 'mean', 'Predicted': 'mean'}).reset_index()
 
+# Valutazione del modello ottimizzato
+mae_Pred_X = mean_absolute_error(df['Purchase Amount (USD)'], df['Predicted'])
+r2_Pred_X = r2_score(df['Purchase Amount (USD)'], df['Predicted'])
+
+print("Predizione Totale Performance:")
+print(f"MAE: {mae_Pred_X}") #Mean Absolute Error
+print(f"R²: {r2_Pred_X}") #Coefficiente di Determinazione
+
+print(df.head())
+
+grouped_df = df.groupby(['Gender', 'Location']).agg({'Purchase Amount (USD)': 'mean', 'Predicted': 'mean'}).reset_index()
 print(grouped_df)
 
 # Arrotondare le predizioni a 3 cifre decimali
