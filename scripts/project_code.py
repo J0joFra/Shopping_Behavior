@@ -2,7 +2,7 @@
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.model_selection import train_test_split, GridSearchCV, cross_val_score, KFold
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score, classification_report
 import matplotlib.pyplot as plt
@@ -78,7 +78,7 @@ for col in categorical_cols:
 print(X.info())
 
 # Divisione dei dati in training e test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
 print(f"Shape of training data: {X_train.shape}")
 
 # Inizializziamo il modello
