@@ -72,6 +72,8 @@ print("Categorical columns:", categorical_cols)
 for col in categorical_cols:
     X[col] = X[col].astype('category').cat.codes
 
+print(X.info())
+
 # Divisione dei dati in training e test set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 print(f"Shape of training data: {X_train.shape}")
