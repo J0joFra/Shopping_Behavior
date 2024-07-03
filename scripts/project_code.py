@@ -93,7 +93,7 @@ variable_importance_plot(feature_importances['importance'], feature_importances[
 mae = mean_absolute_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
 
-print("Optimized Model Performance:")
+print("Model Performance:")
 print(f"MAE: {mae}") #Mean Absolute Error
 print(f"R²: {r2}") #Coefficiente di Determinazione
 
