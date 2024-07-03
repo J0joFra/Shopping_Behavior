@@ -89,6 +89,14 @@ feature_importances = variable_importance(rf_model)
 print_var_importance(feature_importances['importance'], feature_importances['index'], X.columns)
 variable_importance_plot(feature_importances['importance'], feature_importances['index'], X.columns)
 
+# Valutazione del modello
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print("Optimized Model Performance:")
+print(f"MAE: {mae_optimized}") #Mean Absolute Error
+print(f"R²: {r2_optimized}") #Coefficiente di Determinazione
+
 # Ottimizzazione degli iperparametri con GridSearchCV
 param_grid = {
     'n_estimators': [100, 200],
@@ -113,8 +121,8 @@ mae_optimized = mean_absolute_error(y_test, y_pred_optimized)
 r2_optimized = r2_score(y_test, y_pred_optimized)
 
 print("Optimized Model Performance:")
-print(f"MAE: {mae_optimized}")
-print(f"R²: {r2_optimized}")
+print(f"MAE: {mae_optimized}") #Mean Absolute Error
+print(f"R²: {r2_optimized}") #Coefficiente di Determinazione
 
 # Aggiungere le predizioni suddivise per sesso e località
 df['Predicted'] = rf_model.predict(X)
