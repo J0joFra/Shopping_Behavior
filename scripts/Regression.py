@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score, classification_report
 import matplotlib.pyplot as plt
 import seaborn as sns
+#endregion
 
 #region Funzioni
 def print_dx_perc(data_frame, col):
@@ -52,9 +53,7 @@ def variable_importance_plot(importance, indices, names_index):
     plt.gca().invert_yaxis()
     plt.show()
     plt.close()
-
-#========================================================================================================================================
-#========================================================================================================================================
+#endregion
 
 #region Analisi
 file_path = r"C:\Users\JoaquimFrancalanci\OneDrive - ITS Angelo Rizzoli\Desktop\MachineLearning\shopping_behavior_updated.csv"
@@ -64,7 +63,7 @@ df.describe()
 df.info()
 df.drop_duplicates()
 
-df = df.drop(columns=['Customer ID']) #Rimuovere il campo 'Customer ID'
+df = df.drop(columns=['Customer ID']) # Rimuovere il campo 'Customer ID'
 X = df.drop(columns=['Purchase Amount (USD)'])
 y = df['Purchase Amount (USD)']
 
@@ -74,15 +73,15 @@ print("Categorical columns:", categorical_cols)
 
 for col in categorical_cols:
     X[col] = X[col].astype('category').cat.codes
+#endregion
 
-print(X.info())
-
+#region Divisione Dati e Modello Random Forest
 # Divisione dei dati in training e test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 print(f"Shape of training data: {X_train.shape}")
 
 # Inizializziamo il modello
-rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model = RandomForestRegressor(n_estimators=100, random_state=0)
 rf_model.fit(X_train, y_train) # Addestriamo il modello
 y_pred = rf_model.predict(X_test)
 
@@ -99,7 +98,9 @@ r2 = r2_score(y_test, y_pred)
 print("RandomForestRegressor Performance:")
 print(f"MAE: {mae}") #Mean Absolute Error
 print(f"R²: {r2}") #Coefficiente di Determinazione
+#endregion
 
+#region Ottimizzazione Iperparametri
 # Ottimizzazione degli iperparametri con GridSearchCV
 param_grid = {
     'n_estimators': [100, 200],
@@ -128,9 +129,9 @@ print(f"MAE: {mae_optimized}") #Mean Absolute Error
 print(f"R²: {r2_optimized}") #Coefficiente di Determinazione
 
 print(rf_model.predict(X))
-#========================================================================================================================================
-#========================================================================================================================================
+#endregion
 
+#region Valutazione Predizioni
 # Aggiungere le predizioni suddivise per sesso e località
 df['Predicted'] = rf_model.predict(X)
 
@@ -142,21 +143,18 @@ print("Predizione Totale Performance:")
 print(f"MAE: {mae_Pred_X}") #Mean Absolute Error
 print(f"R²: {r2_Pred_X}") #Coefficiente di Determinazione
 
-print(df.head())
-
 grouped_df = df.groupby(['Gender', 'Location']).agg({'Purchase Amount (USD)': 'mean', 'Predicted': 'mean'}).reset_index()
 print(grouped_df)
 
 # Arrotondare le predizioni a 3 cifre decimali
 grouped_df['Predicted'] = grouped_df['Predicted'].round(3)
 
-# Ordinare le location in ordine alfabetico2
+# Ordinare le location in ordine alfabetico
 grouped_df = grouped_df.sort_values(by='Location')
 
 # Visualizzare la tabella delle predizioni per sesso e località
 print("Table of Predicted Values by Gender and Location:")
 
-# Funzione per creare il grafico combinato
 def plot_combined(data, title, y_min, y_max):
     fig, ax1 = plt.subplots(figsize=(12, 8))
 
@@ -175,7 +173,6 @@ def plot_combined(data, title, y_min, y_max):
     fig.tight_layout()
     plt.show()
 
-#Gender Male or Female
 for gender in ['Male', 'Female']:
     print(f"Table of Predicted Values for {gender}s by Location:")
     grouped_df_gender = grouped_df[grouped_df['Gender'] == gender]
@@ -193,7 +190,6 @@ for gender in ['Male', 'Female']:
 
     # Box plot
     try:
-        # Calcolare i valori di mediana, Q1, Q3 e gli estremi
         median = np.median(dif_pred)
         q1 = np.percentile(dif_pred, 25)
         q3 = np.percentile(dif_pred, 75)
@@ -201,7 +197,6 @@ for gender in ['Male', 'Female']:
         lower_whisker = q1 - 1.5 * iqr
         upper_whisker = q3 + 1.5 * iqr
 
-        # Identificare minimi e massimi che non siano outlier
         non_outlier_mask = (dif_pred >= lower_whisker) & (dif_pred <= upper_whisker)
         non_outliers = dif_pred[non_outlier_mask]
         min_val = np.min(non_outliers)
@@ -217,7 +212,6 @@ for gender in ['Male', 'Female']:
         for flier in box['fliers']:
             flier.set(marker='o', color='red', alpha=0.5) #outliers
 
-        # Mediana, Q1, Q3, whisker inferiori e superiori, massimo e minimo
         ax.text(1.1, median, f'Median: {median:.2f}', horizontalalignment='center', verticalalignment='center',
                 fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
         ax.text(1.1, q1, f'Q1: {q1:.2f}', horizontalalignment='center', verticalalignment='center',
@@ -233,7 +227,6 @@ for gender in ['Male', 'Female']:
         ax.text(1.1, max_val, f'Max: {max_val:.2f}', horizontalalignment='center', verticalalignment='center',
                 fontsize=12, bbox=dict(facecolor='white', edgecolor='black'))
 
-        #Linea tratteggiata per la mediana
         ax.axhline(y=median, color='blue', linestyle='--', linewidth=1.5)
         ax.set_ylabel('Values')
         ax.set_title(f'Difference in {gender} Predictions')
@@ -242,6 +235,7 @@ for gender in ['Male', 'Female']:
         plt.show()
     except Exception as e:
         print(f"Box Plot Error: {e}")
+#endregion
 
 #region Linear Regression
 # Suddivisione del dataset in base al genere
@@ -277,3 +271,4 @@ def regression_plot(df, title):
 
 regression_plot(df_male, 'Actual vs Predicted Purchase Amounts (Male)')
 regression_plot(df_female, 'Actual vs Predicted Purchase Amounts (Female)')
+#endregion
