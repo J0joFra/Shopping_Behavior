@@ -10,7 +10,6 @@ Questo progetto analizza i dati relativi ai comportamenti di acquisto dei client
 - `results/`: Output dell'analisi, inclusi grafici e report.
 - `README.md`: Descrizione del progetto e istruzioni per l'uso.
 
-# Dataset
 ## Contesto
 Il [**Consumer Behavior and Shopping Habits Dataset**](https://www.kaggle.com/datasets/zeesolver/consumer-behavior-and-shopping-habits-datasets) fornisce approfondimenti completi sulle *preferenze*, le *tendenze* e i *modelli dei consumatori* durante le loro esperienze di acquisto. 
 
