@@ -6,9 +6,9 @@ Il [**Consumer Behavior and Shopping Habits Dataset**](https://www.kaggle.com/da
 Il dataset fornisce una panoramica dettagliata delle preferenze dei consumatori e dei comportamenti di acquisto. Include informazioni demografiche, cronologia degli acquisti, preferenze di prodotto e canali di acquisto preferiti (online o offline). 
 > Questo dataset è essenziale per le aziende che mirano a personalizzare le proprie strategie per soddisfare le esigenze dei clienti e migliorare la loro esperienza di acquisto, guidando in ultima analisi le vendite e la fedeltà.
 
-### ID cliente: identificatore univoco assegnato a ciascun cliente, che facilita il monitoraggio e l'analisi del suo comportamento di acquisto nel tempo.
+- ***ID cliente***: identificatore univoco assegnato a ciascun cliente.
 
-Età: età del cliente, che fornisce informazioni demografiche per la segmentazione e strategie di marketing mirate.
+- ***Età***: età del cliente.
 
 Genere: l'identificazione di genere del cliente, una variabile demografica fondamentale che influenza le preferenze dei prodotti e i modelli di acquisto.
 
