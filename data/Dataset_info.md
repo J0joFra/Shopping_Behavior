@@ -10,34 +10,34 @@ Il dataset fornisce una panoramica dettagliata delle preferenze dei consumatori 
 
 - ***Età***: età del cliente.
 
-Genere: l'identificazione di genere del cliente, una variabile demografica fondamentale che influenza le preferenze dei prodotti e i modelli di acquisto.
+- ***Genere***: l'identificazione di genere del cliente,.
 
-Articolo acquistato: il prodotto o l'articolo specifico selezionato dal cliente durante la transazione.
+- ***Articolo acquistato***: il prodotto o l'articolo specifico selezionato dal cliente durante la transazione.
 
-Categoria: classificazione generale o gruppo a cui appartiene l'articolo acquistato (ad esempio, abbigliamento, elettronica, generi alimentari).
+- ***Categoria***: classificazione generale o gruppo a cui appartiene l'articolo acquistato (ad esempio, abbigliamento, elettronica, generi alimentari).
 
-Importo dell'acquisto (USD): il valore monetario della transazione, espresso in dollari statunitensi (USD), indica il costo degli articoli acquistati.
+- ***Importo dell'acquisto (USD)***: il valore monetario della transazione.
 
-Posizione: posizione geografica in cui è stato effettuato l'acquisto, che offre informazioni sulle preferenze regionali e sulle tendenze del mercato.
+- ***Posizione***: posizione geografica in cui è stato effettuato l'acquisto.
 
-Taglia: la specifica della taglia (se applicabile) dell'articolo acquistato, rilevante per abbigliamento, calzature e determinati beni di consumo.
+- ***Taglia***: la specifica della taglia dell'articolo acquistato.
 
-Colore: la variante o la scelta del colore associata all'articolo acquistato, che influenza le preferenze del cliente e la disponibilità del prodotto.
+- ***Colore***: la variante o la scelta del colore associata all'articolo acquistato.
 
-Stagione: la pertinenza stagionale dell'articolo acquistato (ad esempio primavera, estate, autunno, inverno), che influisce sulla gestione dell'inventario e sulle strategie di marketing.
+- ***Stagione***: la pertinenza stagionale dell'articolo acquistato.
 
-Valutazione della recensione: valutazione numerica o qualitativa fornita dal cliente in merito alla sua soddisfazione per l'articolo acquistato.
+- ***Valutazione della recensione***: valutazione numerica o qualitativa fornita dal cliente in merito alla sua soddisfazione per l'articolo acquistato.
 
-Stato dell'abbonamento : indica se il cliente ha optato per un servizio in abbonamento, offrendo informazioni sul suo livello di fedeltà e sul potenziale di ricavi ricorrenti.
+- ***Stato dell'abbonamento***: indica se il cliente ha optato per un servizio in abbonamento.
 
-Tipo di spedizione: specifica il metodo utilizzato per consegnare l'articolo acquistato (ad esempio, spedizione standard, consegna espressa), influenzando i tempi e i costi di consegna.
+- ***Tipo di spedizione***: specifica il metodo utilizzato per consegnare l'articolo acquistato.
 
-Sconto applicato: indica se sono stati applicati sconti promozionali all'acquisto, mettendo in luce la sensibilità al prezzo e l'efficacia della promozione.
+- ***Sconto applicato***: indica se sono stati applicati sconti promozionali all'acquisto.
 
-Codice promozionale utilizzato: indica se è stato utilizzato un codice promozionale o un coupon durante la transazione, facilitando la valutazione del successo della campagna di marketing.
+- ***Codice promozionale utilizzato***: indica se è stato utilizzato un codice promozionale o un coupon durante la transazione.
 
-Acquisti precedenti: fornisce informazioni sul numero o sulla frequenza degli acquisti precedenti effettuati dal cliente, contribuendo alle strategie di segmentazione e fidelizzazione della clientela.
+- ***Acquisti precedenti***: fornisce informazioni sul numero o sulla frequenza degli acquisti precedenti effettuati dal cliente.
 
-Metodo di pagamento: specifica la modalità di pagamento utilizzata dal cliente (ad esempio, carta di credito, contanti), offrendo informazioni sulle opzioni di pagamento preferite.
+- ***Metodo di pagamento***: specifica la modalità di pagamento utilizzata dal cliente.
 
-Frequenza degli acquisti: indica la frequenza con cui il cliente effettua attività di acquisto, una metrica fondamentale per valutare la fedeltà del cliente e il valore del ciclo di vita.
+- ***Frequenza degli acquisti***: indica la frequenza con cui il cliente effettua attività di acquisto.
