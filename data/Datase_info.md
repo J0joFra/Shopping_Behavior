@@ -1,8 +1,8 @@
-Informazioni sul set di dati
-Contesto:
-Il Consumer Behavior and Shopping Habits Dataset fornisce approfondimenti completi sulle preferenze, le tendenze e i modelli dei consumatori durante le loro esperienze di acquisto. Questo dataset comprende una vasta gamma di variabili, tra cui informazioni demografiche, cronologia degli acquisti, preferenze di prodotto, frequenza di acquisto e comportamento di acquisto online/offline. Con questa ricca raccolta di dati, analisti e ricercatori possono approfondire le complessità dei processi decisionali dei consumatori, aiutando le aziende a elaborare strategie di marketing mirate, ottimizzare le offerte di prodotti e migliorare la soddisfazione complessiva del cliente.
+# Informazioni sul set di dati
+## Contesto
+Il [**Consumer Behavior and Shopping Habits Dataset**](https://www.kaggle.com/datasets/zeesolver/consumer-behavior-and-shopping-habits-datasets) fornisce approfondimenti completi sulle *preferenze*, le *tendenze* e i *modelli dei consumatori* durante le loro esperienze di acquisto. 
 
-Contenuto:
+## Contenuto
 Il Consumer Behavior and Shopping Habits Dataset fornisce una panoramica dettagliata delle preferenze dei consumatori e dei comportamenti di acquisto. Include informazioni demografiche, cronologia degli acquisti, preferenze di prodotto e canali di acquisto preferiti (online o offline). Questo dataset è essenziale per le aziende che mirano a personalizzare le proprie strategie per soddisfare le esigenze dei clienti e migliorare la loro esperienza di acquisto, guidando in ultima analisi le vendite e la fedeltà.
 
 Glossario del set di dati (per colonna)
