@@ -54,10 +54,37 @@ Il dataset fornisce una panoramica dettagliata delle preferenze dei consumatori 
 - ***Frequenza degli acquisti***: indica la frequenza con cui il cliente effettua attività di acquisto.
 
 # Requisiti
-- Python 3.x
-- Librerie Python: pandas, numpy, matplotlib, seaborn, scikit-learn, jupyter
+Per eseguire il progetto, è necessario avere installati i seguenti strumenti e librerie Python:
 
-## Installazione
-1. Clona il repository:
-   ```bash
-   git clone https://github.com/J0joFra/Shopping_Behavior.git
+### Strumenti
+
+- **Python 3.x**: Assicurati di avere una versione aggiornata di Python 3 installata sul tuo sistema. Puoi scaricare Python dal sito ufficiale: [Python Downloads](https://www.python.org/downloads/).
+
+- **Jupyter Notebook**: Questo strumento ti permette di eseguire e documentare il codice in un formato interattivo. Puoi installarlo utilizzando pip:
+  ```sh
+  pip install notebook
+   ```
+> Jupyter Notebook non è obbligatorio, ma è molto comodo specialmente per la presenza di molte righe di codice.
+
+### Lirerie Python
+Assicurati di avere le seguenti librerie installate:
+- **pandas**: Libreria per la manipolazione e l'analisi dei dati.
+```sh
+pip install pandas
+```
+- **numpy**: Libreria per il calcolo numerico.
+```sh
+pip install numpy
+```
+- **matplotlib**: Libreria per la visualizzazione dei dati.
+```sh
+pip install matplotlib
+```
+- **seaborn**: Libreria per la visualizzazione dei dati basata su matplotlib.
+```sh
+pip install seaborn
+```
+- **scikit-learn**: Libreria per il machine learning.
+```sh
+pip install scikit-learn
+```
