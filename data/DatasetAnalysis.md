@@ -135,6 +135,6 @@ Contributi sono benvenuti! Per favore, crea una pull request o apri un issue per
 Questo progetto è rilasciato sotto la [MIT License](LICENSE).
 
 ## Contatti
-Per qualsiasi domanda o suggerimento, puoi contattarmi a [email@example.com](mailto:email@example.com).
+Per qualsiasi domanda o suggerimento, puoi contattarmi a [email@example.com](jofrancalanci@gmail.com).
 
 Questo markdown include i comandi Python per caricare il dataset, eseguire operazioni di analisi descrittiva e visualizzazione, e mostra gli output simulati che potresti ottenere eseguendo questi comandi nel tuo ambiente Python. Assicurati di adattare i percorsi dei file e le variabili Python secondo il tuo contesto specifico.
